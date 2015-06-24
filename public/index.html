@@ -1,0 +1,39 @@
+<html ng-app="countryApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js JSON Fetching Example</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script>
+      var countryApp = angular.module('countryApp', []);
+      countryApp.controller('CountryCtrl', function ($scope, $http){
+        $http.get('/data/countries.json').success(function(data) {
+          $scope.countries = data;
+        });
+      });
+    </script>
+  </head>
+  <body ng-controller="CountryCtrl">
+    <div class='container'>
+        <div class='page-header'>
+            <h2>Angular.js JSON Fetching Example</h2>
+        </div>
+        <div class='row'>
+            <div class='col-sm-12'>
+                <table class='table table-hover table-bordered'>
+                  <tr>
+                    <th>Code</th>
+                    <th>Country</th>
+                    <th>Population</th>
+                  </tr>
+                  <tr ng-repeat="country in countries | orderBy: 'code' ">
+                    <td>{{country.code}}</td>
+                    <td>{{country.name}}</td>
+                    <td>{{country.population}}</td>
+                  </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
